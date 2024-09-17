@@ -1,4 +1,4 @@
-import 'constants/ImportFiles.dart';
+import 'package:hotel_booking/constants/ImportFiles.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

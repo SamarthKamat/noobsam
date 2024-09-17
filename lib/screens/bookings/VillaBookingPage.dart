@@ -3,14 +3,16 @@ import 'package:hotel_booking/screens/bookings/bookings.dart';
 import 'package:hotel_booking/screens/payment.dart';
 import 'package:intl/intl.dart';
 
-class PremiumBookingPage extends StatelessWidget {
-  const PremiumBookingPage({super.key});
+// For formatting dates
+
+class VillaBookingPage extends StatelessWidget {
+  const VillaBookingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const double pricePerNight = 5000.0; // Example price
-    const double gst = 0.18; // GST rate
-    const double totalAmount = pricePerNight * (1 + gst);
+    final double pricePerNight = 15000.0; // Example price for villa
+    final double gst = 0.18; // GST rate
+    final double totalAmount = pricePerNight * (1 + gst);
 
     final checkInDate = DateTime.now();
     final checkOutDate = DateTime.now().add(const Duration(days: 1));
@@ -21,8 +23,8 @@ class PremiumBookingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Premium Room Booking'),
-        backgroundColor: Colors.deepPurple,
+        title: const Text('Villa Booking'),
+        backgroundColor: Colors.teal, // Color for a more premium villa look
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -30,15 +32,15 @@ class PremiumBookingPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Premium Room Image Section
+              // Villa Image Section
               Container(
                 width: double.infinity,
-                height: 200,
+                height: 220,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(
                     image: AssetImage(
-                        'assets/images/premium_room.jpg'), // Add your premium room image here
+                        'assets/images/villa_room.jpg'), // Replace with villa image
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -47,27 +49,27 @@ class PremiumBookingPage extends StatelessWidget {
 
               // Room Title and Price
               const Text(
-                'Premium Room',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                'Villa',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Text(
                 'Price per Night: ₹${pricePerNight.toStringAsFixed(2)}',
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
+                style: const TextStyle(fontSize: 20, color: Colors.black54),
               ),
               const SizedBox(height: 20),
 
               // Facilities and Amenities with Icons
               const Text(
                 'Facilities and Amenities:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               const Column(
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.wifi, color: Colors.deepPurple, size: 24),
+                      Icon(Icons.wifi, color: Colors.teal, size: 28),
                       SizedBox(width: 10),
                       Text('Free WiFi', style: TextStyle(fontSize: 18)),
                     ],
@@ -75,7 +77,7 @@ class PremiumBookingPage extends StatelessWidget {
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(Icons.ac_unit, color: Colors.deepPurple, size: 24),
+                      Icon(Icons.ac_unit, color: Colors.teal, size: 28),
                       SizedBox(width: 10),
                       Text('Air Conditioning', style: TextStyle(fontSize: 18)),
                     ],
@@ -83,17 +85,25 @@ class PremiumBookingPage extends StatelessWidget {
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(Icons.local_bar, color: Colors.deepPurple, size: 24),
+                      Icon(Icons.pool, color: Colors.teal, size: 28),
                       SizedBox(width: 10),
-                      Text('Mini Bar', style: TextStyle(fontSize: 18)),
+                      Text('Private Pool', style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(Icons.lock, color: Colors.deepPurple, size: 24),
+                      Icon(Icons.spa, color: Colors.teal, size: 28),
                       SizedBox(width: 10),
-                      Text('In-Room Safe', style: TextStyle(fontSize: 18)),
+                      Text('Private Spa', style: TextStyle(fontSize: 18)),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Icon(Icons.restaurant, color: Colors.teal, size: 28),
+                      SizedBox(width: 10),
+                      Text('In-Villa Dining', style: TextStyle(fontSize: 18)),
                     ],
                   ),
                 ],
@@ -104,7 +114,7 @@ class PremiumBookingPage extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.withOpacity(0.1),
+                  color: Colors.teal.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -120,7 +130,7 @@ class PremiumBookingPage extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple),
+                          color: Colors.teal),
                     ),
                   ],
                 ),
@@ -132,7 +142,7 @@ class PremiumBookingPage extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.deepPurple, width: 1),
+                  border: Border.all(color: Colors.teal, width: 1),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +164,7 @@ class PremiumBookingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      'Guests: 1 Adult, 0 Children',
+                      'Guests: 2 Adults, 1 Child',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   ],
@@ -168,13 +178,13 @@ class PremiumBookingPage extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
+                    backgroundColor: Colors.teal,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   onPressed: () {
-                    var roomType = 'premium';
+                    var roomType = 'villa';
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -1,5 +1,6 @@
+import 'package:hotel_booking/constants/ImportFiles.dart';
 import 'package:intl/intl.dart';
-import '../../constants/ImportFiles.dart'; // Adjust import path as needed
+// Adjust import path as needed
 
 class LuxuryBookingPage extends StatelessWidget {
   @override

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking/screens/bookings/bookings.dart';
 import 'package:hotel_booking/screens/payment.dart';
 import 'package:intl/intl.dart';
 
-import '../../constants/ImportFiles.dart'; // For formatting dates
+// For formatting dates
 
 class StandardBookingPage extends StatelessWidget {
   const StandardBookingPage({super.key});

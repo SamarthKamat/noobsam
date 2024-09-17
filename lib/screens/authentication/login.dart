@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
                       builder: (context) => ForgotPasswordDialog(),
                     );
 
-                    if (email != null && email.isNotEmpty) {
+                    if (email!.isNotEmpty) {
                       try {
                         await FirebaseAuth.instance
                             .sendPasswordResetEmail(email: email);
@@ -100,8 +100,7 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: screenHeight * 0.02),
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center, 
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SocialLoginButton(
                     imagePath: 'assets/icons/Google__G__logo.png',

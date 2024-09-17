@@ -1,4 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hotel_booking/constants/ImportFiles.dart';
+import 'package:hotel_booking/screens/bookings/VillaBookingPage.dart';
+import 'package:hotel_booking/screens/rooms/VillaGalleryPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +12,31 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  int _currentIndex = 0;
+
+  final List<String> headerImages = [
+    'assets/images/Homepage.jpg',
+    'assets/images/HOME1.jpg',
+    'assets/images/HOME2.jpg',
+    'assets/images/HOME3.jpg',
+    'assets/images/HOME4.jpg',
+    'assets/images/HOME5.jpg',
+  ];
+
+  final List<String> roomTypes = [
+    'Standard',
+    'Premium',
+    'Luxury',
+    'Suite',
+    'Villa'
+  ];
+  final List<String> imagePaths = [
+    'assets/images/standardroom.jpg',
+    'assets/images/Room-Premium-min.jpg',
+    'assets/images/luxuryRoom.jpeg',
+    'assets/images/suiteroom.jpg',
+    'assets/images/villa.jpg',
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -49,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20),
             sectionTitle('Recommended for You', horizontalPadding),
             const SizedBox(height: 20),
-            buildHorizontalList(screenSize),
+            buildRecommendedForYou(screenSize),
             const SizedBox(height: 20),
             sectionTitle('Explore Our Rooms', horizontalPadding),
             const SizedBox(height: 10),
@@ -83,28 +111,57 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  TextButton buildActionButton(String label, Widget targetPage) {
-    return TextButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => targetPage),
-        );
-      },
-      child: Text(label),
-    );
-  }
-
   Widget buildHeaderImage(Size screenSize) {
-    return Container(
-      width: screenSize.width,
-      height: screenSize.height * 0.3,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/Homepage.jpg'),
-          fit: BoxFit.cover,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        CarouselSlider(
+          items: headerImages
+              .map((imagePath) => Container(
+                    width: screenSize.width,
+                    height: screenSize.height * 0.3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ))
+              .toList(),
+          options: CarouselOptions(
+            height: screenSize.height * 0.3,
+            autoPlay: true,
+            viewportFraction: 1.0,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
         ),
-      ),
+        Positioned(
+          bottom: 10,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: headerImages.asMap().entries.map((entry) {
+              return GestureDetector(
+                onTap: () => setState(() => _currentIndex = entry.key),
+                child: Container(
+                  width: 12.0,
+                  height: 12.0,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color:
+                        _currentIndex == entry.key ? Colors.white : Colors.grey,
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
     );
   }
 
@@ -118,26 +175,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildHorizontalList(Size screenSize) {
+  Widget buildRecommendedForYou(Size screenSize) {
     return SizedBox(
       height: screenSize.height * 0.25,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 4,
+        itemCount: roomTypes.length,
         itemBuilder: (context, index) {
-          final roomTypes = ['Standard', 'Premium', 'Luxury', 'Suite'];
-          final imagePaths = [
-            'assets/images/standardroom.jpg',
-            'assets/images/Room-Premium-min.jpg',
-            'assets/images/luxuryRoom.jpeg',
-            'assets/images/suiteroom.jpg'
-          ];
-
           return Padding(
             padding: EdgeInsets.only(left: screenSize.width * 0.04),
             child: RoomCard(
               width: screenSize.width * 0.5,
-              imageHeight: screenSize.height * 0.12,
+              imageHeight: screenSize.height * 0.2,
               roomName: '${roomTypes[index]} Room',
               imagePath: imagePaths[index],
               onTap: () {
@@ -154,6 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           return LuxuryBookingPage();
                         case 'Suite':
                           return const SuiteBookingPage();
+                        case 'Villa':
+                          return const VillaBookingPage();
                         default:
                           return const StandardBookingPage();
                       }
@@ -172,9 +223,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 5,
+      itemCount: roomTypes.length,
       itemBuilder: (context, index) {
-        final roomTypes = ['Standard', 'Premium', 'Luxury', 'Suite', 'Villa'];
         final colors = [
           Colors.orange.shade200,
           const Color.fromARGB(255, 241, 225, 83),
@@ -198,8 +248,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       return const LuxuryRoomGalleryPage();
                     case 'Suite':
                       return const SuiteRoomGalleryPage();
-                    // case 'Villa':
-                    //   return const VillaRoomGalleryPage(); // Add this page in your routing
+                    case 'Villa':
+                      return const VillaRoomGalleryPage();
                     default:
                       return const StandardRoomGalleryPage();
                   }
@@ -256,127 +306,61 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Separate reusable RoomCard widget
 class RoomCard extends StatelessWidget {
   final double width;
   final double imageHeight;
   final String roomName;
-  final String imagePath; // New parameter for the image path
+  final String imagePath;
   final VoidCallback onTap;
 
   const RoomCard({
-    super.key,
+    Key? key,
     required this.width,
     required this.imageHeight,
     required this.roomName,
-    required this.imagePath, // Initialize the image path
+    required this.imagePath,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: imageHeight,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: DecorationImage(
-                image: AssetImage(imagePath), // Use the image path
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                imagePath,
+                height: imageHeight,
+                width: double.infinity,
                 fit: BoxFit.cover,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
+            const SizedBox(height: 8),
+            Text(
               roomName,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: TextButton(
-              onPressed: onTap,
-              style: TextButton.styleFrom(
-                foregroundColor: const Color.fromARGB(255, 0, 130, 125),
-                backgroundColor: Colors.white,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
               ),
-              child: const Text('Book Now'),
+              textAlign: TextAlign.center,
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Separate reusable RoomListItem widget
-class RoomListItem extends StatelessWidget {
-  final double width;
-  final double height;
-  final String roomName;
-  final VoidCallback onTap;
-
-  const RoomListItem({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.roomName,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        children: [
-          // Placeholder for room image
-          Container(
-            width: width,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.grey[400], // Replace with actual room image
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    roomName,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  TextButton(
-                    onPressed: onTap,
-                    style: TextButton.styleFrom(
-                      foregroundColor: const Color.fromARGB(255, 0, 130, 125),
-                      backgroundColor: Colors.white,
-                    ),
-                    child: const Text('Book'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

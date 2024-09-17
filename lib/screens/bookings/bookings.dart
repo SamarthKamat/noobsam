@@ -66,15 +66,13 @@ class _BookingPageState extends State<BookingPage> {
       firstDate: initialDate,
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (picked != null) {
-      setState(() {
-        if (isCheckIn) {
-          checkInDate = picked;
-        } else {
-          checkOutDate = picked;
-        }
-      });
-    }
+    setState(() {
+      if (isCheckIn) {
+        checkInDate = picked;
+      } else {
+        checkOutDate = picked;
+      }
+    });
   }
 
   String formatDate(DateTime? date) {
