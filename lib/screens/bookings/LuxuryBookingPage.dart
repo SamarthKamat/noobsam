@@ -36,7 +36,7 @@ class LuxuryBookingPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(
-                    image: AssetImage('assets/images/luxuryRoom.jpeg'),
+                    image: AssetImage('assets/images/LX5.png'),
                     fit: BoxFit.cover,
                   ),
                 ),

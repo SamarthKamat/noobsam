@@ -1,4 +1,3 @@
-// TODO Implement this library.
 import 'package:flutter/material.dart';
 import 'package:hotel_booking/screens/bookings/bookings.dart';
 import 'package:hotel_booking/screens/payment.dart';
@@ -11,12 +10,13 @@ class SuiteBookingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double pricePerNight = 10000.0; // Example price
+    final double pricePerNight = 25000.0; // Updated price for Suite
     final double gst = 0.18; // GST rate
     final double totalAmount = pricePerNight * (1 + gst);
 
     final checkInDate = DateTime.now();
-    final checkOutDate = DateTime.now().add(const Duration(days: 1));
+    final checkOutDate =
+        DateTime.now().add(const Duration(days: 2)); // Extended stay for Suite
     final String formattedCheckIn =
         DateFormat('dd MMM yyyy').format(checkInDate);
     final String formattedCheckOut =
@@ -36,12 +36,12 @@ class SuiteBookingPage extends StatelessWidget {
               // Suite Room Image Section
               Container(
                 width: double.infinity,
-                height: 220,
+                height: 250, // Adjusted height for Suite room image
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(
                     image: AssetImage(
-                        'assets/images/suite_room.jpg'), // Replace with suite room image
+                        'assets/images/STUD2.png'), // Replace with Suite room image
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -50,57 +50,71 @@ class SuiteBookingPage extends StatelessWidget {
 
               // Room Title and Price
               const Text(
-                'Suite Room',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                'Luxury Suite Room',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Text(
                 'Price per Night: ₹${pricePerNight.toStringAsFixed(2)}',
-                style: const TextStyle(fontSize: 20, color: Colors.black54),
+                style: const TextStyle(fontSize: 22, color: Colors.black54),
               ),
               const SizedBox(height: 20),
 
               // Facilities and Amenities with Icons
               const Text(
                 'Facilities and Amenities:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Icon(Icons.wifi,
-                          color: Colors.deepPurpleAccent, size: 28),
+                          color: Colors.deepPurpleAccent, size: 30),
                       SizedBox(width: 10),
-                      Text('Free WiFi', style: TextStyle(fontSize: 18)),
+                      Text('Free High-Speed WiFi',
+                          style: TextStyle(fontSize: 20)),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
                     children: [
                       Icon(Icons.ac_unit,
-                          color: Colors.deepPurpleAccent, size: 28),
+                          color: Colors.deepPurpleAccent, size: 30),
                       SizedBox(width: 10),
-                      Text('Air Conditioning', style: TextStyle(fontSize: 18)),
+                      Text('Central Air Conditioning',
+                          style: TextStyle(fontSize: 20)),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
                     children: [
                       Icon(Icons.pool,
-                          color: Colors.deepPurpleAccent, size: 28),
+                          color: Colors.deepPurpleAccent, size: 30),
                       SizedBox(width: 10),
-                      Text('Private Pool', style: TextStyle(fontSize: 18)),
+                      Text('Private Infinity Pool',
+                          style: TextStyle(fontSize: 20)),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
                     children: [
                       Icon(Icons.restaurant,
-                          color: Colors.deepPurpleAccent, size: 28),
+                          color: Colors.deepPurpleAccent, size: 30),
                       SizedBox(width: 10),
-                      Text('Personal Chef', style: TextStyle(fontSize: 18)),
+                      Text('Personal Chef & Gourmet Dining',
+                          style: TextStyle(fontSize: 20)),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Icon(Icons.spa, color: Colors.deepPurpleAccent, size: 30),
+                      SizedBox(width: 10),
+                      Text('In-Room Spa Services',
+                          style: TextStyle(fontSize: 20)),
                     ],
                   ),
                 ],
@@ -120,12 +134,12 @@ class SuiteBookingPage extends StatelessWidget {
                     const Text(
                       'Total Amount (with GST):',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '₹${totalAmount.toStringAsFixed(2)}',
                       style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: Colors.deepPurpleAccent),
                     ),
@@ -147,7 +161,7 @@ class SuiteBookingPage extends StatelessWidget {
                     const Text(
                       'Booking Details',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -161,7 +175,7 @@ class SuiteBookingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      'Guests: 1 Adult, 0 Children',
+                      'Guests: 2 Adults, 0 Children',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   ],
@@ -172,23 +186,22 @@ class SuiteBookingPage extends StatelessWidget {
               // Proceed to Payment Button
               SizedBox(
                 width: double.infinity,
-                height: 50,
+                height: 55,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurpleAccent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   onPressed: () {
-                    var roomType = 'suite';
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => BookingPage(
                           checkInDate: checkInDate,
                           checkOutDate: checkOutDate,
-                          roomType: roomType,
+                          roomType: 'suite',
                           totalAmount: totalAmount,
                         ),
                       ),
@@ -196,7 +209,7 @@ class SuiteBookingPage extends StatelessWidget {
                   },
                   child: const Text(
                     'Proceed to Payment',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

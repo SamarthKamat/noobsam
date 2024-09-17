@@ -41,7 +41,7 @@ class StandardBookingPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(
                     image: AssetImage(
-                        'assets/images/standard_room.jpg'), // Replace with your image
+                        'assets/images/ST3.png'), // Replace with your image
                     fit: BoxFit.cover,
                   ),
                 ),

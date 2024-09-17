@@ -38,7 +38,7 @@ class PremiumBookingPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(
                     image: AssetImage(
-                        'assets/images/premium_room.jpg'), // Add your premium room image here
+                        'assets/images/PR3.png'), // Add your premium room image here
                     fit: BoxFit.cover,
                   ),
                 ),

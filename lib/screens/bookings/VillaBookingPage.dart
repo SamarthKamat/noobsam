@@ -40,7 +40,7 @@ class VillaBookingPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   image: const DecorationImage(
                     image: AssetImage(
-                        'assets/images/villa_room.jpg'), // Replace with villa image
+                        'assets/images/Villa3.jpeg'), // Replace with villa image
                     fit: BoxFit.cover,
                   ),
                 ),
