@@ -13,10 +13,10 @@ class _StandardRoomGalleryPageState extends State<StandardRoomGalleryPage> {
   Widget build(BuildContext context) {
     // Multiple images for the standard room
     final List<String> imageList = [
-      'assets/images/ST1.png',
-      'assets/images/ST2.png',
-      'assets/images/ST3.png',
-      'assets/images/ST4.png',
+      'assets/images/STGP/ST1.png',
+      'assets/images/STGP/ST2.png',
+      'assets/images/STGP/ST3.png',
+      'assets/images/STGP/ST4.png',
     ];
 
     const String description =

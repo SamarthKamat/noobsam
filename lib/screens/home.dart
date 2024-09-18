@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget buildRecommendedForYou(Size screenSize) {
     return SizedBox(
-      height: screenSize.height * 0.25, // Reduced height
+      height: screenSize.height * 0.24, // Reduced height
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: roomTypes.length,
@@ -282,17 +282,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Column(
                       children: [
                         Text(
                           '${roomTypes[index]} Room',
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () {
                             navigateToBookingPage(roomTypes[index]);
@@ -337,7 +337,8 @@ class _HomeScreenState extends State<HomeScreen> {
               color: colors[index % colors.length],
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color:
+                      const Color.fromARGB(201, 255, 252, 252).withOpacity(0.1),
                   blurRadius: 8,
                   spreadRadius: 2,
                 ),
